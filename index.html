@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script src="./lib/amazon-cognito-identity.min.js"></script>
+  <script src="./lib/aws-sdk.min.js"></script>
+  <script>
+
+    var data = {
+      UserPoolId : "ap-northeast-1_SZaKKAcbu",
+      ClientId : "4oo9kqikin0h2kebcpeud9dm65"
+    };
+    var userPool = new AmazonCognitoIdentity.CognitoUserPool(data);
+    var cognitoUser = userPool.getCurrentUser();
+    
+    if (cognitoUser === null) {
+
+      location.href = "./login.html";
+
+    } else {
+
+      cognitoUser.getSession(function(err, session) {
+          if (err) {
+              alert(err);
+              return;
+          }
+          console.log('session validity: ' + session.isValid());
+  
+      });
+
+    }
+  </script>
+  <main>
+    会員ページ
+  </main>
+</body>
+</html>
